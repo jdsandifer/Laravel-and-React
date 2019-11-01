@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Comment;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,31 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('comments', function(){
-    return response([
-        [
-            'text' => 'Comment 1',
-            'userName' => 'Joe Writer',
-            'userEmail' => 'somewhere@gmail.com'
-        ],
-        [
-            'text' => 'Comment 2',
-            'userName' => 'Jam Writer',
-            'userEmail' => 'somewhere@gmail.com'
-        ],
-        [
-            'text' => 'Comment 3',
-            'userName' => 'Joseph Writer',
-            'userEmail' => 'somewhere@gmail.com'
-        ],
-        [
-            'text' => 'Comment 4',
-            'userName' => 'James Writer',
-            'userEmail' => 'somewhere@gmail.com'
-        ],
-        [
-            'text' => 'Comment 5',
-            'userName' => 'Jacob Writer',
-            'userEmail' => 'somewhere@gmail.com'
-        ]
-    ], 200);
+    return response(Comment::all(), 200);
+});
+
+Route::post('comments', function(Request $request){
+    $resp = Comment::create($request->all());
+    return $resp;
 });
