@@ -3,18 +3,23 @@ import './App.css';
 import Comment from './components/Comment.js';
 
 function App() {
-  const [latestComments, setLatestComments] = useState([{text: 'hi there! first comment', userName: 'joeMan', userEmail: 'something@some.com'}]);
+  const [latestComments, setLatestComments] = useState([]);
 
-  // useEffect(() => {
-  //   fetch()
-  //     .then(({data}) => setLatestComments(data))
-  // })
+  useEffect(
+    () => {
+      fetch('/comments')
+        .then(response => response.json())
+        .then(data => setLatestComments(data))
+        .catch(error => { console.warn(error); });
+    },
+    [],
+  );
 
   return (
     <main className="App">
       <h1>Latest Comments</h1>
       <div>
-        {latestComments.map(comment => (<Comment {...comment} />))}
+        {latestComments.map(comment => (<Comment {...comment} key={comment.id}/>))}
       </div>
       <div>form to add comments</div>
     </main>
