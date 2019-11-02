@@ -19,7 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('comments', function(){
-    return response(Comment::all(), 200);
+    $latestCommentsFirst = Comment::orderBy('id', 'desc')->take(5)->get();
+    return response($latestCommentsFirst, 200);
 });
 
 Route::post('comments', function(Request $request){
