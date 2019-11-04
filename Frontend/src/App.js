@@ -23,7 +23,7 @@ const postNewComment = (commentData) => {
       credentials: "same-origin",
       body: JSON.stringify(commentData),
     })
-    .then(response => console.log(response))
+    .then(response => response.json())
     .catch(error => { console.warn(error); });
 }
 
@@ -36,9 +36,22 @@ function App() {
     [],
   );
 
-  const handleSubmit = (name, email, comment) => {
-    console.log(name, email, comment);
-    postNewComment({ userName: name, userEmail: email, text: comment });
+  // Get the latest comment every 60 seconds, too.
+  const sixtySeconds = 60000;  // in milliseconds
+  useEffect(
+    () => {
+      const commentsUpdater = setInterval(
+        () => { fetchLatestComments(setLatestComments); },
+        sixtySeconds,
+      );
+      return () => clearInterval(commentsUpdater);
+    },
+    [],
+  );
+
+  const handleSubmit = async (name, email, comment) => {
+    await postNewComment({ userName: name, userEmail: email, text: comment });
+    fetchLatestComments(setLatestComments);
   }
 
   return (

@@ -6,10 +6,15 @@ const CommentForm = (props) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [comment, setComment] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(name, email, comment);
+    setName('');
+    setEmail('');
+    setComment('');
+    setSuccess(true);
   }
 
   return (
@@ -40,6 +45,7 @@ const CommentForm = (props) => {
           />
         </label>
         <input type="submit" value="Submit" />
+        {success && "Success! Your comment has been added."}
       </form>
     </div>
   );
