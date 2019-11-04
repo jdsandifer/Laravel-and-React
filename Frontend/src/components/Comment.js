@@ -6,7 +6,7 @@ const Comment = (props) => {
   return (
     <div>
       <p>{text}</p>
-      <div style={{textAlign: 'right'}}> - {userName}</div>
+      <span> - {userName}</span>
     </div>
   );
 }
