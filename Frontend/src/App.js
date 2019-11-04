@@ -10,8 +10,19 @@ const fetchLatestComments = (setData) => {
     .catch(error => { console.warn(error); });
 }
 
-const postNewComment = (name, email, comment) => {
-  fetch('/comments', { mode: 'POST' })
+const postNewComment = (commentData) => {
+  fetch('/comments',
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json, text-plain, */*",
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRF-TOKEN": 'test1234'
+      },
+      method: 'post',
+      credentials: "same-origin",
+      body: JSON.stringify(commentData),
+    })
     .then(response => console.log(response))
     .catch(error => { console.warn(error); });
 }
@@ -27,7 +38,7 @@ function App() {
 
   const handleSubmit = (name, email, comment) => {
     console.log(name, email, comment);
-    //postNewComment(name, email, comment);
+    postNewComment({ userName: name, userEmail: email, text: comment });
   }
 
   return (
