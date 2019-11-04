@@ -21,7 +21,7 @@ const CommentForm = (props) => {
     <div>
       <h2>Add A Comment</h2>
       <form onSubmit={handleSubmit}>
-        <label>Name:
+        <label>Author Name:
           <input
             type='name'
             required={true}
@@ -29,7 +29,7 @@ const CommentForm = (props) => {
             onChange={e => setName(e.target.value)}
           />
         </label>
-        <label>Email:
+        <label>Author Email:
           <input
             type='email'
             required={true}
