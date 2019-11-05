@@ -12,11 +12,11 @@ class Comment extends Model
      * @var array
      */
     protected $fillable = [
-        'text', 'userName', 'userEmail',
+        'text',
     ];
 
     public function author()
     {
-        $this->belongsTo(Author::class);
+        return $this->belongsTo(Author::class);
     }
 }

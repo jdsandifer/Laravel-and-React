@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import './App.css';
 import Comment from './components/Comment.js';
 import CommentForm from './components/CommentForm.js';
 
@@ -10,7 +9,7 @@ const fetchLatestComments = (setData) => {
     .catch(error => { console.warn(error); });
 }
 
-const postNewComment = (commentData) => {
+const postNewComment = (commentData, setAuthorId) => {
   fetch('/comments',
     {
       headers: {
@@ -24,11 +23,14 @@ const postNewComment = (commentData) => {
       body: JSON.stringify(commentData),
     })
     .then(response => response.json())
+    .then(data => setAuthorId(data.author_id))
     .catch(error => { console.warn(error); });
 }
 
 function App() {
-  const [latestComments, setLatestComments] = useState([]);
+  const [latestComments, setLatestComments] = useState([])
+  const newAuthorId = 0;
+  const [authorId, setAuthorId] = useState(newAuthorId);
 
   // Get latest comments on mount
   useEffect(
@@ -50,7 +52,13 @@ function App() {
   );
 
   const handleSubmit = async (name, email, comment) => {
-    await postNewComment({ userName: name, userEmail: email, text: comment });
+    await postNewComment(
+      (authorId > 0
+        ? { text: comment, id: authorId }
+        : { authorName: name, authorEmail: email, text: comment, id: authorId }
+      ),
+      setAuthorId,
+    );
     fetchLatestComments(setLatestComments);
   }
 
@@ -62,8 +70,7 @@ function App() {
           {latestComments.map(comment => (<Comment {...comment} key={comment.id}/>))}
         </div>
         <CommentForm
-          // savedName="Jan Doe"
-          // savedEmail="test6@test.com"
+          repeatAuthor={authorId !== 0}
           onSubmit={handleSubmit}
         />
       </main>
