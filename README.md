@@ -1,8 +1,5 @@
 # A Simple Project to Try Out a Laravel API with a React UI
 
-## Setting Up a Database
-
-
 ## Running the Project
 To install the project and run it on your machine, first ensure you have the latest PHP, Composer, and Node. Then follow these steps:
 
