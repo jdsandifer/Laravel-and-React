@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Author extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,11 +12,11 @@ class Comment extends Model
      * @var array
      */
     protected $fillable = [
-        'text', 'userName', 'userEmail',
+        'name', 'email',
     ];
 
-    public function author()
+    public function comments()
     {
-        $this->belongsTo(Author::class);
+        return $this->hasMany(Comment::class);
     }
 }
