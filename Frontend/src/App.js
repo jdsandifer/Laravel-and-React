@@ -55,13 +55,19 @@ function App() {
   }
 
   return (
-    <main className="App">
-      <h1>Latest Comments</h1>
-      <div>
-        {latestComments.map(comment => (<Comment {...comment} key={comment.id}/>))}
-      </div>
-      <CommentForm onSubmit={handleSubmit} />
-    </main>
+    <div className="container-fluid">
+      <main className="mx-auto" style={{ maxWidth: '700px' }}>
+        <h1>Last 5 Comments</h1>
+        <div className="p-3">
+          {latestComments.map(comment => (<Comment {...comment} key={comment.id}/>))}
+        </div>
+        <CommentForm
+          // savedName="Jan Doe"
+          // savedEmail="test6@test.com"
+          onSubmit={handleSubmit}
+        />
+      </main>
+    </div>
   );
 }
 
