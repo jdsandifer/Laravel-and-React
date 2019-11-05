@@ -6,7 +6,7 @@ const fetchLatestComments = (setData) => {
   fetch('/comments')
     .then(response => response.json())
     .then(data => setData(data))
-    .catch(error => { console.warn(error); });
+    .catch(error => { console.error(error); });
 }
 
 const postNewComment = (commentData, setAuthorId) => {
@@ -24,7 +24,7 @@ const postNewComment = (commentData, setAuthorId) => {
     })
     .then(response => response.json())
     .then(data => setAuthorId(data.author_id))
-    .catch(error => { console.warn(error); });
+    .catch(error => { console.error(error); });
 }
 
 function App() {

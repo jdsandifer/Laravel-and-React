@@ -6,8 +6,8 @@ const CommentForm = (props) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [comment, setComment] = useState('');
-
   const [success, setSuccess] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(name, email, comment);
